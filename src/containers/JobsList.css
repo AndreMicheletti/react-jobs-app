@@ -1,0 +1,16 @@
+
+#content-wrapper {
+    width: 100%;
+    overflow-y: none;
+    overflow-x: auto;
+    padding-top: 15px;
+}
+
+#content {
+    color: #333;
+    font-size: 13px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
