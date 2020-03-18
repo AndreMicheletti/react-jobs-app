@@ -1,42 +1,51 @@
 import React from 'react';
 
+import { Job } from "../schemas";
 import "./JobCard.css";
 
-function JobCard() {
+type JobCardProps = {
+    job: Job
+};
+
+function renderTags (tags: Array<{ name: String }>) {
+    return tags.map(tag => {
+        return (
+            <div>{tag.name}</div>
+        )
+    })
+}
+
+function renderInfo(title: String, value: String) {
+    if (!value) {
+        return null;
+    }
+
+    return (
+        <div className="info">
+            <p><strong>{title}</strong></p>
+            <p>{value}</p>
+        </div>
+    )
+}
+
+const JobCard: React.FunctionComponent<JobCardProps> = ({ job }) => {
     return (
         <div className="job-card">
             <div className="job-card-head">
-                <div></div>
                 <div id="title">
-                    Senior Fullstack Engineer - Platform
+                    {job.title}
                 </div>
                 <div id="tags">
-                    <div>TypeScript</div>
-                    <div>React</div>
+                    {renderTags(job.tags)}
                 </div>
             </div>
             <hr />
             <div className="job-card-content">
-                <div className="info">
-                    <p><strong>Company</strong></p>
-                    <p>Segment</p>
-                </div>
-                <div className="info">
-                    <p><strong>Commitment</strong></p>
-                    <p>Full-time</p>
-                </div>
-                <div className="info">
-                    <p><strong>Location</strong></p>
-                    <p>San Francisco</p>
-                </div>
-                <div className="info">
-                    <p><strong>Posted at</strong></p>
-                    <p>01/03/2020</p>
-                </div>
-                <div className="info">
-                    <p><strong>Updated at</strong></p>
-                    <p>01/03/2020</p>
-                </div>
+                {renderInfo("Company", job.company.name)}
+                {renderInfo("Commitment", job.commitment.title)}
+                {renderInfo("Location", job.locationNames)}
+                {renderInfo("Posted at", job.postedAt)}
+                {renderInfo("Updated at", job.updatedAt)}
             </div>
         </div>
     )

@@ -14,3 +14,30 @@
     justify-content: flex-start;
     align-items: center;
 }
+
+#pagination {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#pagination div {
+    width: 30;
+    height: 30;
+    margin: 4px 5px 4px 5px;
+    background-color: #b7b7b7;
+    color: white;
+    padding: 4px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.1s;
+}
+
+#pagination div:hover {
+    background-color: #9a5d68;
+}
+
+#pagination .current {
+    background-color: #793642;
+}
