@@ -1,11 +1,11 @@
-import React, { useState, JSXElementConstructor } from 'react';
+import React, { useState } from 'react';
 import Header from './Header';
 import JobCard from '../components/JobCard';
-import Modal from '../components/Modal';
+import JobModal from '../components/JobModal';
 
 import { useQuery } from '@apollo/react-hooks';
 
-import { Job } from '../schemas';
+import { Job, SelectedJob } from '../schemas';
 import { ALL_JOBS } from '../queries';
 
 import './JobsList.css';
@@ -15,7 +15,7 @@ type jobsData = {
     jobs: Array<Job>
 }
 
-function renderJobCards (data: jobsData, loading: boolean, page: number) {
+function renderJobCards (data: jobsData, loading: boolean, page: number, clickCallback: Function) {
 
     if (loading || !data) {
         return (
@@ -25,7 +25,7 @@ function renderJobCards (data: jobsData, loading: boolean, page: number) {
 
     return data.jobs.slice(page * 10, page * 10 + 10).map(job => {
         return (
-            <JobCard job={job} />
+            <JobCard key={job.id.toString()} job={job} onSelectJob={clickCallback} />
         );
     });
 }
@@ -40,7 +40,7 @@ function renderPagination (data: jobsData, loading: boolean, page: number, setPa
 
     return Array.from({length: totalPages}, (x, pageNum) => {
         return (
-            <div className={pageNum == page ? "current" : ""} onClick={() => setPage(pageNum)}>
+            <div key={`paginator${pageNum}`} className={pageNum === page ? "current" : ""} onClick={() => setPage(pageNum)}>
                 {pageNum}
             </div>
         )
@@ -48,24 +48,39 @@ function renderPagination (data: jobsData, loading: boolean, page: number, setPa
 }
 
 function JobsList() {
+    
+    const noneSelected: SelectedJob = {
+        jobSlug: '',
+        companySlug: ''
+    }
 
     const [modalVisible, setModalVisible] = useState(false);
     const [page, setPage] = useState(0);
+    const [selectedJob, setSelectedJob] = useState(noneSelected);
     
     const { loading, error, data } = useQuery(ALL_JOBS);
+
+    if (error) console.warn(error)
+
+    const onSelectJob = (job: Job) => {
+        setModalVisible(true)
+        const sel: SelectedJob = {
+            jobSlug: job.slug,
+            companySlug: job.company.slug
+        }
+        setSelectedJob(sel)
+    }
 
     return (
         <div>
             <Header />
-            <Modal visible={modalVisible} onClose={() => setModalVisible(false)}>
-                <p>Ola</p>
-            </Modal>
+            <JobModal visible={modalVisible} job={selectedJob} onClose={() => setModalVisible(false)} />
             <div id="content-wrapper">
                 <div id="pagination">
                     {renderPagination(data, loading, page, setPage)}
                 </div>
                 <div id="content">
-                    {renderJobCards(data, loading, page)}
+                    {renderJobCards(data, loading, page, onSelectJob)}
                 </div>
             </div>
         </div>

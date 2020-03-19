@@ -1,42 +1,48 @@
 
 export type Tag = {
-    id: String,
-    name: String
+    id: string,
+    name: string
 }
 
 export type Commitment = {
-    title: String
+    title: string
 }
 
 export type Company = {
-    id: String,
-    name: String,
-    logoUrl: String
+    id: string,
+    name: string,
+    slug: string,
+    logoUrl: string
+}
+
+export type SelectedJob = {
+    jobSlug: string,
+    companySlug: string
 }
 
 export type Job = {
-    id: String,
-    title: String,
-    locationNames: String,
+    id: string,
+    title: string,
+    slug: string,
+    locationNames: string,
     company: Company,
     tags: Array<Tag>,
     commitment: Commitment,
-    isFeatured: boolean,
-    postedAt: String,
-    updatedAt: String,
+    postedAt: string,
+    updatedAt: string,
 }
 
 export type DetailedJob = {
-    id: String,
-    title: String,
-    slug: String,
-    locationNames: String,
+    id: string,
+    title: string,
+    slug: string,
+    description: string,
+    locationNames: string,
     company: Company,
     tags: Array<Tag>,
     commitment: Commitment,
-    description: String,
     isFeatured: boolean,
-    postedAt: String,
-    updatedAt: String,
-    applyUrl: String
+    postedAt: string,
+    updatedAt: string,
+    applyUrl: string,
 }

@@ -10,6 +10,7 @@ query {
       company {
         id,
         name,
+        slug,
         logoUrl
       },
       tags {
@@ -22,11 +23,41 @@ query {
         title,
         slug,
       },
-      description,
-      isFeatured,
       postedAt,
       updatedAt,
       applyUrl
     }
+}
+`;
+
+export const GET_JOB_DETAILS = gql`
+query($companySlug: String!, $jobSlug: String!) {
+  job(
+    input: {
+      companySlug: $companySlug,
+      jobSlug: $jobSlug
+    }
+  ) {
+    id,
+    title,
+    slug,
+    company {
+      id,
+      slug,
+      name
+    },
+    commitment {
+      id,
+      title
+    },
+    tags {
+      id,
+      name,
+    },
+    description,
+    isFeatured,
+    postedAt,
+    updatedAt,
+  }
 }
 `;

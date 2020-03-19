@@ -13,8 +13,8 @@
     position: relative;
     top: 10%;
     margin: auto auto;
-    width: 500px;
-    height: 500px;
+    width: 60%;
+    height: 570px;
     background-color: white;
     border-radius: 2px;
     padding: 20px;
@@ -23,15 +23,78 @@
     grid-template-rows: 1fr 33px;
 }
 
-#modal-content {
-    display: inline;
+#modal-title {
+    display: grid;
+    grid-template-columns: 1fr;
+    font-size: 1.55em;
+    font-weight: 400;
 }
 
-#close-button {
+#modal-contents {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-gap: 20px;
+}
+
+#modal-side-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-around;
+}
+#modal-side-info div {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 5px;
+}
+
+#modal-description {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 400px;
+    max-height: 400px;
+}
+
+#modal-inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    height: 55px;
+    max-height: 55px;
+    padding: 20px;
+}
+
+#modal-inputs div{
+    margin: auto auto;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-gap: 10px;
+    align-items: center;
+}
+#modal-inputs span {
+    font-size: 1.2em;
+}
+
+#modal-inputs input{
+    width: 300px;
+    padding: 4px 8px;
+    border-radius: 2px;
+    border: 2px solid #793642;
+    box-shadow: 0px 0px 3px 1px #79364287;
+    font-size: 0.9em;
+}
+
+#modal-buttons {
+    display: grid;
+    grid-template-columns: 1fr 200px 200px 1fr;
+    grid-column-gap: 10px;
+}
+
+#modal-button {
     margin: 0 auto;
     width: auto;
     cursor: pointer;
-    padding: 5px 10px 5px 10px;
+    padding: 10px 15px 10px 15px;
     background-color: #793642;
     color: white;
     font-size: 1.1em;
@@ -39,6 +102,19 @@
     font-weight: 400;
     transition: background-color 0.2s;
 }
-#close-button:hover {
+#modal-button:hover {
     background-color: #9a5d68;
+}
+
+#application-feedback {
+    padding: 10%;
+    text-align: center;
+    font-size: 1.4em;
+    font-weight: 200;
+}
+
+#application-id {
+    color: #793642;
+    font-weight: 600;
+    margin-left: 8px;
 }

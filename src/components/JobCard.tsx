@@ -1,16 +1,17 @@
 import React from 'react';
 
-import { Job } from "../schemas";
+import { Job, Tag } from "../schemas";
 import "./JobCard.css";
 
 type JobCardProps = {
-    job: Job
+    job: Job,
+    onSelectJob: Function
 };
 
-function renderTags (tags: Array<{ name: String }>) {
+function renderTags (tags: Array<Tag>) {
     return tags.map(tag => {
         return (
-            <div>{tag.name}</div>
+            <div key={tag.id.toString()}>{tag.name}</div>
         )
     })
 }
@@ -28,9 +29,9 @@ function renderInfo(title: String, value: String) {
     )
 }
 
-const JobCard: React.FunctionComponent<JobCardProps> = ({ job }) => {
+const JobCard: React.FunctionComponent<JobCardProps> = ({ job, onSelectJob }) => {
     return (
-        <div className="job-card">
+        <div className="job-card" onClick={() => onSelectJob(job)}>
             <div className="job-card-head">
                 <div id="title">
                     {job.title}
